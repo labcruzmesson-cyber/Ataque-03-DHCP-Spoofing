@@ -1,14 +1,12 @@
 # Ataque-DHCP-Spoofing
 ## 1. Objetivo del Laboratorio
-El objetivo de este laboratorio es demostrar de forma práctica y controlada la vulnerabilidad intrínseca del protocolo DHCP (Dynamic Host Configuration Protocol) ante la falta de autenticación en redes locales.
-
-El ejercicio busca ilustrar cómo un atacante puede levantar un servidor DHCP no autorizado (Rogue DHCP Server) para alterar la configuración de red de los dispositivos cliente. Al controlar los parámetros asignados (especialmente la puerta de enlace y los servidores DNS), se sientan las bases para entender las amenazas de interceptación de tráfico y redirección maliciosa.
+El objetivo de este laboratorio es demostrar de forma práctica y controlada la vulnerabilidad intrínseca del protocolo DHCP (Dynamic Host Configuration Protocol) ante la falta de autenticación en redes locales. El ejercicio busca ilustrar cómo un atacante puede levantar un servidor DHCP no autorizado (Rogue DHCP Server) para alterar la configuración de red de los dispositivos cliente. Al controlar los parámetros asignados (especialmente la puerta de enlace y los servidores DNS), se sientan las bases para entender las amenazas de interceptación de tráfico y redirección maliciosa.
 
 ---
 
 ## 2. Topología de la Red
 La topología representa una red de laboratorio estructurada bajo una arquitectura jerárquica simple, donde todos los dispositivos internos coexisten en la VLAN 89. La red cuenta con servicios automáticos de asignación de direccionamiento IP (DHCP) administrados por un enrutador dedicado, y salida a redes externas (Internet) a través de un enrutador de borde con traducción de direcciones.
-![image_alt](
+![image_alt](https://github.com/labcruzmesson-cyber/Ataque-DHCP-Spoofing/blob/34790b50584ce13a4acee15ef010f13663eef806/Topologia.png)
 ### A. Hardware y Dispositivos
 La infraestructura física y los nodos que componen la topología se distribuyen según sus roles funcionales en la red:
 
@@ -122,7 +120,7 @@ Es una característica de seguridad implementada en los switches de red. Consist
 * **Puertos Confiables (Trusted):** Puertos donde se sabe con certeza que está conectado el servidor DHCP legítimo de la empresa o un enlace troncal.
 * **Puertos No Confiables (Untrusted):** Puertos donde se conectan los usuarios finales o dispositivos desconocidos.
 
-> **Mecanismo:** El switch analiza el tráfico DHCP en los puertos "No Confiables". Si detecta que desde uno de estos puertos se intenta enviar un paquete de respuesta DHCP (como el DHCP OFFER o DHCP ACK que genera este script), el switch bloquea el paquete inmediatamente y descarta la comunicación, neutralizando el ataque por completo.
+> El switch analiza el tráfico DHCP en los puertos "No Confiables". Si detecta que desde uno de estos puertos se intenta enviar un paquete de respuesta DHCP (como el DHCP OFFER o DHCP ACK que genera este script), el switch bloquea el paquete inmediatamente y descarta la comunicación, neutralizando el ataque por completo.
 
 ### B. Seguridad de Puertos (Port Security)
 Dado que muchos ataques de DHCP Spoofing van acompañados de un ataque previo de agotamiento de IPs (DHCP Starvation) mediante la creación de direcciones MAC aleatorias para consumir el pool legítimo, limitar la cantidad de direcciones MAC permitidas por puerto en el switch previene que un atacante sature el servidor real para forzar el uso del servidor falso.
